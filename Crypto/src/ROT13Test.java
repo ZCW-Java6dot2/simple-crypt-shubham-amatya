@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -88,4 +89,29 @@ public class ROT13Test {
         assertTrue(actual.equals(Q1));
     }
 
+    @Test
+    public void caesarTest(){
+
+            Caesar caesar = new Caesar();
+
+            String Q1 = "Hello world!";
+            String A1 = "Jgnnq yqtnf!";
+
+            // When
+            String actual = caesar.crypt(Q1, 2);
+            System.out.println(Q1);
+            System.out.println(A1);
+            // Then
+            assertTrue(actual.equals(A1));
+    }
+
+   @Test
+    public void caesarTest2(){
+        Caesar caesar = new Caesar();
+       String Q1 = "Why did the chicken cross the road?!";
+       String A1 = "Xiz eje uif dijdlfo dsptt uif spbe?!";
+
+       String actual = caesar.crypt(Q1, 1);
+       Assert.assertEquals(A1, actual);
+   }
 }
