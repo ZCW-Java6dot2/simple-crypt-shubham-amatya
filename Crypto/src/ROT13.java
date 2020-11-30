@@ -1,6 +1,5 @@
-import static java.lang.Character.isLowerCase;
-import static java.lang.Character.isUpperCase;
-import static java.lang.Character.toLowerCase;
+import java.io.*;
+
 
 public class ROT13  {
 
@@ -21,23 +20,28 @@ public class ROT13  {
 
 
     public String crypt(String text) throws UnsupportedOperationException {
+        StringBuffer result = new StringBuffer();
 
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < text.length(); i++) {
-                char ch = text.charAt(i);
-                if (ch >= 'a' && ch <= 'm') {
-                    ch += 13;
-                } else if (ch >= 'A' && ch <= 'M') {
-                    ch += 13;
-                } else if (ch >= 'n' && ch <= 'z') {
-                    ch -= 13;
-                } else if (ch >= 'N' && ch <= 'Z') {
-                    ch -= 13;
-                }
+        for (int i = 0; i < text.length(); i++) {
+            if (Character.isUpperCase(text.charAt(i))) {
+                char ch = (char) (((int) text.charAt(i) +
+                        13 - 65) % 26 + 65);
                 result.append(ch);
+            } else if (Character.isLowerCase(text.charAt(i))) {
+
+                char ch = (char) (((int) text.charAt(i) +
+                        13 - 97) % 26 + 97);
+                result.append(ch);
+            } else {
+                result.append(text.charAt(i));
+
+
             }
-            return result.toString();
         }
+        return result.toString();
+    }
+
+
     //int difference = cf - cs;
         /*char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         char[] shiftedAlphabet = new char[alphabet.length];
@@ -85,6 +89,31 @@ public class ROT13  {
                 result += charS[i];
             }
             return result;
+        }
+
+        public void encryptFile(File file){
+        ROT13 cipher = new ROT13();
+        cipher.encryptFile(new File ("sonnnet18.txt"));
+       // cipher.decrypt(new File("sonnet18.enc"))
+        ;
+
+
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            Writer out;
+            BufferedWriter writer = new BufferedWriter(new FileWriter("sonnet18.enc"));
+            String line;
+            while((line = reader.readLine()) != null){
+                    writer.write(encrypt(line) + "\n");
+                }
+            writer.close();
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         }
 
 //        char[] charArr = s.toCharArray();
