@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 
 
@@ -16,9 +17,6 @@ public class ROT13  {
         cf = 'n';
     }
 
-
-
-
     public String crypt(String text) throws UnsupportedOperationException {
         StringBuffer result = new StringBuffer();
 
@@ -34,15 +32,14 @@ public class ROT13  {
                 result.append(ch);
             } else {
                 result.append(text.charAt(i));
-
-
             }
         }
         return result.toString();
     }
 
 
-    //int difference = cf - cs;
+    //Alternate way to explore in free time--
+    // int difference = cf - cs;
         /*char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         char[] shiftedAlphabet = new char[alphabet.length];
         char shift = 13;
@@ -92,21 +89,14 @@ public class ROT13  {
         }
 
         public void encryptFile(File file){
-        ROT13 cipher = new ROT13();
-        cipher.encryptFile(new File ("sonnnet18.txt"));
-       // cipher.decrypt(new File("sonnet18.enc"))
-        ;
-
-
-        try{
+                try{
             BufferedReader reader = new BufferedReader(new FileReader(file));
-            Writer out;
             BufferedWriter writer = new BufferedWriter(new FileWriter("sonnet18.enc"));
             String line;
             while((line = reader.readLine()) != null){
                     writer.write(encrypt(line) + "\n");
                 }
-            writer.close();
+            reader.close();
             writer.close();
 
         } catch (FileNotFoundException e) {
@@ -116,16 +106,26 @@ public class ROT13  {
         }
         }
 
-//        char[] charArr = s.toCharArray();
-//        char[] resultArr = new char[charArr.length];
-//
-//        for(int i= 0; i< charArr.length; i++){
-//            resultArr[i] = charArr[(i+ charArr.length+ 13)% charArr.length];
-//        }
-//
-//
-//        return resultArr.toString();
+        public void decryptFile(File file){
 
-    }
+            try{
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                BufferedWriter writer = new BufferedWriter(new FileWriter("sonnet18.enc"));
+                String line;
+                while((line = reader.readLine()) != null){
+                    writer.write(decrypt(line) + "\n");
+                }
+                reader.close();
+                writer.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        }
+
+
 
 
